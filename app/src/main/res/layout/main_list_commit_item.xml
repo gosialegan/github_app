@@ -1,45 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="commitItem"
             type="com.oksik.github_app.model.CommitItem" />
+
         <variable
             name="clickListener"
             type="com.oksik.github_app.ui.main.CommitItemListener" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="true"
         android:background="?android:attr/selectableItemBackground"
-        android:onClick="@{() -> clickListener.onClick(commitItem)}"
+        android:clickable="true"
         android:focusable="true">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@{String.valueOf(commitItem.sha)}"
+                tools:text="sha12345678" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@{String.valueOf(commitItem.commit.message)}"
+                tools:text="message" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@{String.valueOf(commitItem.commit.author.name)}"
+                tools:text="name name" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@{String.valueOf(commitItem.sha)}"
-            tools:text="sha12345678"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{() -> clickListener.onClick(commitItem)}"
+            android:checked="@{commitItem.selected}"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@{String.valueOf(commitItem.commit.message)}"
-            tools:text="message"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@{String.valueOf(commitItem.commit.author.name)}"
-            tools:text="name name"/>
-
-    </LinearLayout>
 </layout>

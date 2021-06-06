@@ -51,6 +51,6 @@ class CommitItemDiffCallback : DiffUtil.ItemCallback<CommitItem>() {
     }
 }
 
-class CommitItemListener(val clickListener: (sha: String) -> Unit) {
-    fun onClick(commitItem: CommitItem) = clickListener(commitItem.sha)
+class CommitItemListener(val clickListener: (item: CommitItem) -> Unit) {
+    fun onClick(commitItem: CommitItem) = clickListener(commitItem)
 }
